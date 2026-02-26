@@ -6,6 +6,9 @@ clear()
 change_hat(Hats.Traffic_Cone)
 do_a_flip()
 
+def farm_core():
+    create_farms.init_plant()
+    start_farms.farm()
 
 def maze_core():
     while True:
@@ -13,12 +16,6 @@ def maze_core():
         if num_drones() < 2:
             spawn_drone(maze.search_left)
         maze.search_right()
-
-
-def farm_core():
-    create_farms.init_plant()
-    start_farms.farm()
-
 
 def cactus_core():
     while True:
@@ -33,5 +30,9 @@ def sunflower_core():
     while True:
         start_farms.farm_sunflower()
 
+def wood_core():
+    create_farms.plant_wood()
+    while True:
+        start_farms.farm_wood()
 
-cactus_core()
+farm_core()

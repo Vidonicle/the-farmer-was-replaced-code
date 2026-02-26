@@ -2,6 +2,7 @@ import helpers
 
 side_length = get_world_size()
 
+# Basic farming --------
 pumpkin_tiles = set()
 
 edge_coords_pumpkins = (
@@ -48,9 +49,10 @@ def farm():
                 move(North)
             move(North)
             move(East)
+# ----------------------
 
 
-# For cactus farming ---
+# Cactus farming ---
 def sort_columns():
     # Uses a bubble sort algorithm O(n^3)
     # For all columns on the plot
@@ -101,11 +103,9 @@ def sort_rows():
                 break
 
         move(North)
-
-
 # ----------------------
 
-
+# Sunflower farming ----
 def farm_sunflower():
     side_length = get_world_size()
 
@@ -143,3 +143,23 @@ def farm_sunflower():
         plant(Entities.Sunflower)
         helpers.use_water(3)
         helpers.use_water(3)
+# ----------------------
+
+# Tree farming ---------
+def farm_wood():
+    for _ in range(side_length):
+        for _ in range(side_length):
+            ent_type = get_entity_type()
+
+            if can_harvest():
+                harvest()
+
+            plant(ent_type)
+            if ent_type == Entities.Tree:
+                helpers.use_water()
+            
+            move(North)
+        
+        move(North)
+        move(East)
+# ----------------------

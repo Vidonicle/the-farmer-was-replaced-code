@@ -1,9 +1,9 @@
 import helpers
 
-dirs = [North, East, South, West]
-dont_water = [Entities.Grass, Entities.Pumpkin]
-
 side_length = get_world_size()
+
+# Basic farm pattern
+dont_water = [Entities.Grass, Entities.Pumpkin]
 
 pumpkin_tiles = set()
 
@@ -22,7 +22,6 @@ for x in range(side_length):
 for x in edge_coords_pumpkins:
     for y in range(side_length):
         pumpkin_tiles.add((x, y))
-
 
 def init_plant():
     for _ in range(side_length):
@@ -53,11 +52,14 @@ def init_plant():
                     helpers.use_water()
 
             move(North)
+
         move(North)
         move(East)
+
     pet_the_piggy()
+# ----------------------
 
-
+# Cactus farm ----------
 def plant_cactus():
     for _ in range(side_length):
         for _ in range(side_length):
@@ -65,9 +67,10 @@ def plant_cactus():
             plant(Entities.Cactus)
             move(North)
         move(East)
+# ----------------------
 
-
-def plant_sunflower():
+# Sunflower farm
+def plant_sunflower() -> int:
     set_world_size(4)
     side_length = get_world_size()
 
@@ -79,3 +82,22 @@ def plant_sunflower():
 
             move(North)
         move(East)
+# ----------------------
+    
+# Wood farm
+def plant_wood():
+    for _ in range(side_length):
+        i = 0
+        for _ in range(side_length):
+            if i % 2 == 0:
+                plant(Entities.Tree)
+                helpers.use_water()
+            else:
+                plant(Entities.Bush)
+
+            i += 1
+            move(North)
+
+        move(North)
+        move(East)
+# ----------------------
