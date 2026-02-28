@@ -1,31 +1,12 @@
 import helpers
 
-side_length = get_world_size()
+pumpkin_tiles = helpers.get_pumpkin_tiles(12)
 
-# Basic farm pattern
-dont_water = [Entities.Grass, Entities.Pumpkin]
 
-pumpkin_tiles = set()
-
-edge_coords_pumpkins = (
-    side_length - 5,
-    side_length - 4,
-    side_length - 3,
-    side_length - 2,
-    side_length - 1,
-)
-
-for x in range(side_length):
-    for y in edge_coords_pumpkins:
-        pumpkin_tiles.add((x, y))
-
-for x in edge_coords_pumpkins:
-    for y in range(side_length):
-        pumpkin_tiles.add((x, y))
-
+# Basic farm pattern ---
 def init_plant():
-    for _ in range(side_length):
-        for j in range(side_length):
+    for _ in range(get_world_size()):
+        for j in range(get_world_size()):
             pos = helpers.get_position()
             k = j % 4
 
@@ -37,67 +18,120 @@ def init_plant():
                     # Grass
                     pass
                 elif k == 1:
-                    # Bush / Tree
+                    # Tree
                     plant(Entities.Tree)
                 elif k == 2:
                     # Carrot
                     helpers.till_grassland()
                     plant(Entities.Carrot)
                 elif k == 3:
-                    # Sunflower
-                    helpers.till_grassland()
-                    plant(Entities.Sunflower)
+                    # Bush
+                    plant(Entities.Bush)
 
-                if get_entity_type() not in dont_water:
-                    helpers.use_water()
+                helpers.use_water()
 
             move(North)
 
         move(North)
         move(East)
 
+    # Because Piggy is the best
     pet_the_piggy()
+
+
 # ----------------------
+
+
+# # Carrot farm ----------
+# def plant_carrot():
+#     for _ in range(get_world_size()):
+#         for _ in range(get_world_size()):
+#             helpers.till_grassland()
+#             plant(Entities.Carrot)
+#             helpers.use_water(1, 0.5)
+
+#             move(North)
+
+#         move(East)
+
+#     # Because Piggy is the best
+#     pet_the_piggy()
+
+
+# # ----------------------
+
+
+# # Wood farm ------------
+# def plant_wood():
+#     for _ in range(get_world_size()):
+#         i = 0
+#         for _ in range(get_world_size()):
+#             if i % 2 == 0:
+#                 plant(Entities.Tree)
+#                 helpers.use_water()
+#             else:
+#                 plant(Entities.Bush)
+
+#             i += 1
+#             move(North)
+
+#         move(North)
+#         move(East)
+
+#     # Because Piggy is the best
+#     pet_the_piggy()
+
+
+# # ----------------------
+
+
+# Sunflower farm -------
+def plant_sunflower():
+    set_world_size(4)
+
+    for _ in range(get_world_size()):
+        for _ in range(get_world_size()):
+            helpers.till_grassland()
+            plant(Entities.Sunflower)
+            helpers.use_water(2, 0.50)
+
+            move(North)
+        move(East)
+
+    # Because Piggy is the best
+    pet_the_piggy()
+
+
+# ----------------------
+
+
+# Pumpkin farm ---------
+def plant_pumpkin():
+    for _ in range(get_world_size()):
+        for _ in range(get_world_size()):
+            helpers.till_grassland()
+            plant(Entities.Pumpkin)
+            move(North)
+        move(East)
+
+    # Because Piggy is the best
+    pet_the_piggy()
+
+
+# ----------------------
+
 
 # Cactus farm ----------
 def plant_cactus():
-    for _ in range(side_length):
-        for _ in range(side_length):
+    for _ in range(get_world_size()):
+        for _ in range(get_world_size()):
             helpers.till_grassland()
             plant(Entities.Cactus)
             move(North)
         move(East)
-# ----------------------
 
-# Sunflower farm
-def plant_sunflower() -> int:
-    set_world_size(4)
-    side_length = get_world_size()
+    # Because Piggy is the best
+    pet_the_piggy()
 
-    for _ in range(side_length):
-        for _ in range(side_length):
-            helpers.till_grassland()
-            plant(Entities.Sunflower)
-            helpers.use_water(2, 0.51)
 
-            move(North)
-        move(East)
-# ----------------------
-    
-# Wood farm
-def plant_wood():
-    for _ in range(side_length):
-        i = 0
-        for _ in range(side_length):
-            if i % 2 == 0:
-                plant(Entities.Tree)
-                helpers.use_water()
-            else:
-                plant(Entities.Bush)
-
-            i += 1
-            move(North)
-
-        move(North)
-        move(East)
 # ----------------------

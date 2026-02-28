@@ -6,6 +6,9 @@ def create_maze():
     plant(Entities.Bush)
     use_item(Items.Weird_Substance, substance)
 
+    # Because Piggy is the best
+    pet_the_piggy()
+
 
 def try_move(dir_idx):
     if can_move(dirs[dir_idx]):
