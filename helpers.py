@@ -52,3 +52,48 @@ def get_pumpkin_tiles(n):
             pumpkin_tiles.add((x, y))
 
     return pumpkin_tiles
+
+
+def move_to(x, y):
+    dx = x - get_pos_x()
+    dy = y - get_pos_y()
+
+    if dx == 0:
+        pass
+    elif dx < 0:
+        for _ in range(-dx):
+            move(West)
+    elif dx > 0:
+        for _ in range(dx):
+            move(East)
+
+    if dy == 0:
+        pass
+    elif dy < 0:
+        for _ in range(-dy):
+            move(South)
+    elif dy > 0:
+        for _ in range(dy):
+            move(North)
+
+
+def entitiy_hat(ent_type: Entity):
+    if ent_type == Entities.Grass:
+        pass
+    elif ent_type == Entities.Bush:
+        change_hat(Hats.Green_Hat)
+    elif ent_type == Entities.Carrot:
+        change_hat(Hats.Carrot_Hat)
+    elif ent_type == Entities.Tree:
+        change_hat(Hats.Tree_Hat)
+    elif ent_type == Entities.Sunflower:
+        change_hat(Hats.Sunflower_Hat)
+    elif ent_type == Entities.Pumpkin:
+        change_hat(Hats.Pumpkin_Hat)
+    elif ent_type == Entities.Cactus:
+        change_hat(Hats.Cactus_Hat)
+
+
+# For drone spawn testing
+def do_nothing():
+    pass

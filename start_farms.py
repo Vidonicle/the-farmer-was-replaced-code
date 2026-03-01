@@ -34,41 +34,37 @@ def farm():
 
 
 # Companion farming ----
-def companion_farm(ent_type: Entity, originx=0, originy=0):
+def companion_farm():
 
-    while get_pos_x() != originx:
-        move(West)
-    while get_pos_y() != originy:
-        move(South)
+    (originx, originy) = helpers.get_position()
 
-    helpers.till_grassland(ent_type)
-    plant(ent_type)
-
-    set_world_size(4)
+    origin_ent = get_entity_type()
 
     while True:
         companion, (x, y) = get_companion()
 
-        quick_print(companion, (x, y))
-
         dx = x - get_pos_x()
         if dx > 0:
-            for _ in range(dx):
+            while get_pos_x() != x:
                 move(East)
+                dx = x - get_pos_x()
             homex = West
         elif dx < 0:
-            for _ in range(dx):
+            while get_pos_x() != x:
                 move(West)
+                dx = x - get_pos_x()
             homex = East
 
         dy = y - get_pos_y()
         if dy > 0:
-            for _ in range(dy):
+            while get_pos_y() != y:
                 move(North)
+                dy = y - get_pos_y()
             homey = South
         elif dy < 0:
-            for _ in range(dy):
+            while get_pos_y() != y:
                 move(South)
+                dy = y - get_pos_y()
             homey = North
 
         harvest()
@@ -81,16 +77,15 @@ def companion_farm(ent_type: Entity, originx=0, originy=0):
             move(homey)
 
         while not can_harvest():
-            helpers.use_water(1, 1.00)
+            helpers.use_water(1, 0.95)
             continue
 
         harvest()
-        helpers.till_grassland(ent_type)
-        plant(ent_type)
+        helpers.till_grassland(origin_ent)
+        plant(origin_ent)
 
 
 # ----------------------
-
 
 # # Carrot farming -------
 # def farm_carrot():
