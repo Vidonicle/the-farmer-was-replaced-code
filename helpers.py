@@ -54,9 +54,21 @@ def get_pumpkin_tiles(n):
     return pumpkin_tiles
 
 
+# Moves to set coordinates, shortest path in each direction
+# Only works for wrap aroundable modes
+def wrapped_delta(target, current):
+    delta = target - current
+    if abs(delta) > get_world_size() // 2:
+        if delta > 0:
+            delta -= get_world_size()
+        else:
+            delta += get_world_size()
+    return delta
+
+
 def move_to(x, y):
-    dx = x - get_pos_x()
-    dy = y - get_pos_y()
+    dx = wrapped_delta(x, get_pos_x())
+    dy = wrapped_delta(y, get_pos_y())
 
     if dx == 0:
         pass
@@ -77,6 +89,7 @@ def move_to(x, y):
             move(North)
 
 
+# Change to selected hat based on entity type
 def entitiy_hat(ent_type: Entity):
     if ent_type == Entities.Grass:
         pass
@@ -94,6 +107,7 @@ def entitiy_hat(ent_type: Entity):
         change_hat(Hats.Cactus_Hat)
 
 
-# For drone spawn testing
+# For drone spawn testing and idling
 def do_nothing():
-    pass
+    while True:
+        pass
